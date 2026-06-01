@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hanif Daffa Dzulfahmi</title>
+  <meta name="description" content="Hanif Daffa Dzulfahmi — IT Student, Network Enthusiast, Language Learner.">
+  <link rel="stylesheet" href="style.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+</head>
+
+<body>
+
+  <!-- ─── Three.js Canvas Background ──────────────────────── -->
+  <div id="canvas-bg"></div>
+
+  <!-- ─── Scroll Progress ──────────────────────────────────── -->
+  <div id="scroll-bar"></div>
+
+  <!-- ─── Custom Cursor ────────────────────────────────────── -->
+  <div id="cursor-ring"></div>
+  <div id="cursor-dot"></div>
+
+  <!-- ─── Cinematic Intro ──────────────────────────────────── -->
+  <div id="intro">
+    <p id="intro-word" class="intro-word"></p>
+    <div class="intro-progress">
+      <div id="intro-bar" class="intro-bar"></div>
+    </div>
+  </div>
+
+  <!-- ─── Command Palette ──────────────────────────────────── -->
+  <div id="cmd-overlay">
+    <div class="cmd-box glass-heavy">
+      <div class="cmd-search">
+        <i data-lucide="search" style="width:18px;height:18px;color:var(--text-muted);flex-shrink:0"></i>
+        <input type="text" id="cmd-input" placeholder="Type a command or search...">
+        <span class="kbd">ESC</span>
+      </div>
+      <div class="cmd-body">
+        <div class="cmd-group-label">Navigation</div>
+        <button class="cmd-item" onclick="execCmd('nav-hero')">
+          <span class="cmd-item-left"><i data-lucide="home" style="width:15px;height:15px"></i> Go to Home</span>
+          <span class="cmd-item-right">Jump</span>
+        </button>
+        <button class="cmd-item" onclick="execCmd('nav-bento')">
+          <span class="cmd-item-left"><i data-lucide="grid" style="width:15px;height:15px"></i> Bento Grid</span>
+          <span class="cmd-item-right">Jump</span>
+        </button>
+        <button class="cmd-item" onclick="execCmd('nav-skills')">
+          <span class="cmd-item-left"><i data-lucide="globe" style="width:15px;height:15px"></i> Skill Galaxy</span>
+          <span class="cmd-item-right">Jump</span>
+        </button>
+        <button class="cmd-item" onclick="execCmd('nav-ecosystem')">
+          <span class="cmd-item-left"><i data-lucide="layers" style="width:15px;height:15px"></i> Tech Ecosystem</span>
+          <span class="cmd-item-right">Jump</span>
+        </button>
+        <button class="cmd-item" onclick="execCmd('nav-projects')">
+          <span class="cmd-item-left"><i data-lucide="folder" style="width:15px;height:15px"></i> Projects</span>
+          <span class="cmd-item-right">Jump</span>
+        </button>
+        <button class="cmd-item" onclick="execCmd('nav-contact')">
+          <span class="cmd-item-left"><i data-lucide="mail" style="width:15px;height:15px"></i> Contact</span>
+          <span class="cmd-item-right">Jump</span>
+        </button>
+        <div class="cmd-divider"></div>
+        <div class="cmd-group-label">Language</div>
+        <button class="cmd-item" onclick="execCmd('lang-en')">
+          <span class="cmd-item-left">🇬🇧 English</span>
+          <span class="cmd-item-right">Switch</span>
+        </button>
+        <button class="cmd-item" onclick="execCmd('lang-id')">
+          <span class="cmd-item-left">🇮🇩 Indonesian</span>
+          <span class="cmd-item-right">Switch</span>
+        </button>
+        <button class="cmd-item" onclick="execCmd('lang-jp')">
+          <span class="cmd-item-left">🇯🇵 Japanese (日本語)</span>
+          <span class="cmd-item-right">Switch</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Project Modal ─────────────────────────────────────── -->
+  <div id="project-modal">
+    <div class="modal-box glass-heavy">
+      <button class="modal-close" onclick="closeModal()">
+        <i data-lucide="x" style="width:18px;height:18px"></i>
+      </button>
+      <div class="modal-body">
+        <span id="modal-tag" class="badge badge-accent" style="margin-bottom:16px;display:inline-flex"></span>
+        <h2 id="modal-title" style="font-size:clamp(1.5rem,3vw,2.5rem);color:var(--text);margin-bottom:4px"></h2>
+        <div class="modal-meta">
+          <div>
+            <div id="modal-cat-label" class="modal-meta-label">Category</div>
+            <div id="modal-cat-val" class="modal-meta-val"></div>
+          </div>
+          <div>
+            <div id="modal-tech-label" class="modal-meta-label">Tech Stack</div>
+            <div id="modal-tech-val" class="modal-meta-val accent"></div>
+          </div>
+          <div>
+            <div id="modal-out-label" class="modal-meta-label">Learning Outcome</div>
+            <div id="modal-out-val" class="modal-meta-val"></div>
+          </div>
+        </div>
+        <div class="modal-section" style="margin-bottom:24px">
+          <h4 class="modal-section-title">
+            <i data-lucide="alert-circle" style="width:18px;height:18px;color:var(--secondary)"></i>
+            <span id="modal-chal-title">Challenge & Problem Statement</span>
+          </h4>
+          <p id="modal-chal"></p>
+        </div>
+        <div class="modal-section">
+          <h4 class="modal-section-title">
+            <i data-lucide="cpu" style="width:18px;height:18px;color:var(--primary)"></i>
+            <span id="modal-sol-title">Solution & Implementation</span>
+          </h4>
+          <p id="modal-sol"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Header ───────────────────────────────────────────── -->
+  <header id="main-header">
+    <div class="header-inner">
+      <a href="#hero" class="logo">
+        <span class="logo-mark">HD</span>
+        <span class="logo-sub">TRANSCENDENCE</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#bento">Bento Grid</a>
+        <a href="#skills">Orbit System</a>
+        <a href="#ecosystem">Tech Stack</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="search-btn" onclick="toggleCmdPalette()">
+          <i data-lucide="search" style="width:14px;height:14px"></i>
+          <span>Search</span>
+          <span class="kbd">Ctrl</span><span class="kbd">K</span>
+        </button>
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+          <button class="lang-btn" data-lang="id" onclick="setLang('id')">ID</button>
+          <button class="lang-btn" data-lang="jp" onclick="setLang('jp')">JP</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════
+     HERO SECTION
+═══════════════════════════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-blob-1"></div>
+    <div class="hero-blob-2"></div>
+
+    <div class="hero-grid container">
+
+      <!-- Left: Content -->
+      <div class="hero-content">
+        <div>
+          <span class="badge badge-accent">
+            <span
+              style="width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;flex-shrink:0"></span>
+            <span data-t="hero-badge">Pioneering Future Technical Innovations</span>
+          </span>
+        </div>
+
+        <div>
+          <h1 class="hero-name">
+            <span class="hero-name-gradient">HANIF DAFFA</span><br>DZULFAHMI
+          </h1>
+        </div>
+
+        <div class="hero-roles">
+          <span>
+            <i data-lucide="book-open" style="width:15px;height:15px;color:var(--primary)"></i>
+            <span data-t="hero-sub1">Information Technology Student</span>
+          </span>
+          <span class="dot">•</span>
+          <span>
+            <i data-lucide="cpu" style="width:15px;height:15px;color:var(--secondary)"></i>
+            <span data-t="hero-sub2">Network Enthusiast</span>
+          </span>
+          <span class="dot">•</span>
+          <span>
+            <i data-lucide="languages" style="width:15px;height:15px;color:var(--accent)"></i>
+            <span data-t="hero-sub3">Language Learner</span>
+          </span>
+        </div>
+
+        <p class="hero-desc" data-t="hero-desc">
+          Deeply passionate about technology, computer networking systems, web frontend construction, and multilingual
+          intercultural bridge-building.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="#bento" class="btn-primary">
+            <span data-t="hero-cta1">Explore Journey</span>
+            <i data-lucide="arrow-right" style="width:16px;height:16px"></i>
+          </a>
+          <a href="#projects" class="btn-ghost">
+            <span data-t="hero-cta2">View Projects</span>
+            <i data-lucide="folder" style="width:16px;height:16px"></i>
+          </a>
+          <a href="mailto:hanifdaffa1207@gmail.com" class="btn-ghost">
+            <span data-t="hero-cta3">Contact Directly</span>
+            <i data-lucide="mail" style="width:16px;height:16px"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: ID Card -->
+      <div class="id-card-wrapper">
+        <div class="id-card glass glow-border" id="id-card">
+          <div class="id-card-glow"></div>
+
+          <div class="id-card-top">
+            <div>
+              <p class="id-card-label">DIGITAL PORTFOLIO ID</p>
+              <p class="id-card-name">Hanif Daffa Dzulfahmi</p>
+            </div>
+            <span class="id-active">ACTIVE</span>
+          </div>
+
+          <div class="id-card-portrait">
+            <div class="avatar-ring animate-float">
+              <div class="avatar-inner">
+                <span>HDD</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="id-card-stats">
+            <div class="id-stat-row">
+              <span class="id-stat-label" data-t="card-status">Status</span>
+              <span class="id-stat-val" data-t="card-status-val">Vocational Student</span>
+            </div>
+            <div class="id-stat-row">
+              <span class="id-stat-label" data-t="card-interests">Interests</span>
+              <span class="id-stat-val" data-t="card-int-val">Networking • Tech • Languages</span>
+            </div>
+            <div class="id-stat-row">
+              <span class="id-stat-label" data-t="card-loc">Location</span>
+              <span class="id-stat-val">Indonesia</span>
+            </div>
+            <div class="id-stat-row">
+              <span class="id-stat-label" data-t="card-avail">Availability</span>
+              <span class="id-avail">
+                <span class="pulse-dot"></span>
+                <span data-t="card-avail-val">Open to Projects</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+     BENTO GRID
+═══════════════════════════════════════════════════════════════ -->
+  <section id="bento" class="section section-border">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-t="bento-title">Bento Grid Experience</h2>
+        <p data-t="bento-sub">High-fidelity structural competence cards making up my professional technology ecosystem.
+        </p>
+      </div>
+
+      <div class="bento-grid">
+
+        <!-- IT -->
+        <div class="bento-card glass glow-border">
+          <div>
+            <div class="bento-icon blue"><i data-lucide="monitor" style="width:22px;height:22px"></i></div>
+            <h3 data-t="b1-t">Information Technology</h3>
+            <p data-t="b1-d">Mastering computer hardware maintenance, seamless system integration, and reliable multi-OS
+              configurations.</p>
+          </div>
+          <div class="bento-chips">
+            <span class="chip">Hardware</span>
+            <span class="chip">Software</span>
+            <span class="chip">OS Maintenance</span>
+          </div>
+        </div>
+
+        <!-- Networking -->
+        <div class="bento-card glass glow-border">
+          <div>
+            <div class="bento-icon purple"><i data-lucide="git-branch" style="width:22px;height:22px"></i></div>
+            <h3 data-t="b2-t">Computer Networking</h3>
+            <p data-t="b2-d">Designing address schemes, dynamic routing, enterprise-grade switching, and protocol
+              optimization models.</p>
+          </div>
+          <div class="bento-chips">
+            <span class="chip">TCP/IP</span>
+            <span class="chip">Routing</span>
+            <span class="chip">Switching</span>
+          </div>
+        </div>
+
+        <!-- Web -->
+        <div class="bento-card glass glow-border">
+          <div>
+            <div class="bento-icon cyan"><i data-lucide="code" style="width:22px;height:22px"></i></div>
+            <h3 data-t="b3-t">Programming & Web</h3>
+            <p data-t="b3-d">Building high-performance interfaces, semantic styling, and beautiful client layouts with
+              modern practices.</p>
+          </div>
+          <div class="bento-chips">
+            <span class="chip">HTML5</span>
+            <span class="chip">CSS3</span>
+            <span class="chip">Responsive</span>
+          </div>
+        </div>
+
+        <!-- Languages (span 2) -->
+        <div class="bento-card glass glow-border span-2">
+          <div>
+            <div class="bento-icon blue"><i data-lucide="languages" style="width:22px;height:22px"></i></div>
+            <h3 data-t="b4-t">Communication Languages</h3>
+            <p data-t="b4-d">Dissolving limits with fluency in Indonesian (Native), technical English, and active
+              Japanese learning.</p>
+          </div>
+          <div class="lang-flags">
+            <span class="lang-flag-chip"><span>🇮🇩</span> Indonesia</span>
+            <span class="lang-flag-chip"><span>🇬🇧</span> English</span>
+            <span class="lang-flag-chip"><span>🇯🇵</span> Japanese</span>
+          </div>
+        </div>
+
+        <!-- Ecosystem -->
+        <div class="bento-card glass glow-border">
+          <div>
+            <div class="bento-icon cyan"><i data-lucide="layers" style="width:22px;height:22px"></i></div>
+            <h3 data-t="b5-t">Ecosystem Tooling</h3>
+            <p data-t="b5-d">Streamlining clean code with Git, GitHub, VS Code workspace, and Linux command-line
+              environments.</p>
+          </div>
+          <div class="bento-chips">
+            <span class="chip">Linux CLI</span>
+            <span class="chip">Git / GitHub</span>
+          </div>
+        </div>
+
+        <!-- Future Vision (span 3) -->
+        <div class="bento-card glass glow-border span-3" style="min-height:200px">
+          <div class="bento-future-bg"></div>
+          <div>
+            <div class="bento-icon purple"><i data-lucide="award" style="width:22px;height:22px"></i></div>
+            <h3 data-t="b6-t">Future Professional Vision</h3>
+            <p data-t="b6-d" style="max-width:700px">Evolving into a globally competent Network Engineer and Technology
+              Architect communicating fluently across boards.</p>
+          </div>
+          <p class="future-mono">TRANSITION PHASE 2026 – 2028</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+     SKILL GALAXY ORBIT
+═══════════════════════════════════════════════════════════════ -->
+  <section id="skills" class="section section-border" style="background:rgba(3,5,15,0.5)">
+    <div class="container">
+      <div class="section-header center">
+        <h2 data-t="galaxy-title">Skill Galaxy Orbit System</h2>
+        <p data-t="galaxy-sub">Visual simulation tracking key technical domains rotating around a central core.</p>
+      </div>
+
+      <div class="galaxy-arena">
+        <!-- Orbit rings -->
+        <div class="orbit-ring" style="width:160px;height:160px"></div>
+        <div class="orbit-ring" style="width:310px;height:310px"></div>
+        <div class="orbit-ring" style="width:480px;height:480px"></div>
+
+        <!-- Core -->
+        <div class="galaxy-core">
+          <div class="galaxy-core-inner">
+            <span class="core-label" data-t="core-label">CORE</span>
+            <span class="core-name">HANIF<br>DAFFA</span>
+          </div>
+        </div>
+
+        <!-- Node 1: Networking -->
+        <div class="orbit-wrapper orbit-spin-1">
+          <div class="orbit-node blue" style="transform:translateY(-80px)">
+            <i data-lucide="git-branch" style="width:13px;height:13px;color:var(--primary)"></i>
+            <span data-t="g1">Networking</span>
+          </div>
+        </div>
+        <!-- Node 2: Windows -->
+        <div class="orbit-wrapper orbit-spin-2">
+          <div class="orbit-node cyan" style="transform:translateX(-155px)">
+            <i data-lucide="monitor" style="width:13px;height:13px;color:var(--accent)"></i>
+            <span data-t="g2">Windows</span>
+          </div>
+        </div>
+        <!-- Node 3: Linux -->
+        <div class="orbit-wrapper orbit-spin-3">
+          <div class="orbit-node purple" style="transform:translateY(155px)">
+            <i data-lucide="terminal" style="width:13px;height:13px;color:var(--secondary)"></i>
+            <span data-t="g3">Linux</span>
+          </div>
+        </div>
+        <!-- Node 4: Japanese -->
+        <div class="orbit-wrapper orbit-spin-4">
+          <div class="orbit-node red" style="transform:translateX(240px)">
+            <span>🇯🇵</span>
+            <span data-t="g4">Japanese</span>
+          </div>
+        </div>
+        <!-- Node 5: English -->
+        <div class="orbit-wrapper orbit-spin-5">
+          <div class="orbit-node white" style="transform:translateY(-240px)">
+            <span>🇬🇧</span>
+            <span data-t="g5">English</span>
+          </div>
+        </div>
+        <!-- Node 6: Web Dev -->
+        <div class="orbit-wrapper orbit-spin-6">
+          <div class="orbit-node cyan" style="transform:translateX(80px)">
+            <i data-lucide="code" style="width:13px;height:13px;color:var(--accent)"></i>
+            <span data-t="g6">Web Dev</span>
+          </div>
+        </div>
+        <!-- Node 7: Hardware -->
+        <div class="orbit-wrapper orbit-spin-7">
+          <div class="orbit-node blue" style="transform:translateX(-80px)">
+            <i data-lucide="cpu" style="width:13px;height:13px;color:var(--primary)"></i>
+            <span data-t="g7">Hardware</span>
+          </div>
+        </div>
+        <!-- Node 8: GitHub -->
+        <div class="orbit-wrapper orbit-spin-8">
+          <div class="orbit-node white" style="transform:translateY(240px)">
+            <i data-lucide="github" style="width:13px;height:13px"></i>
+            <span data-t="g8">GitHub</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+     STORYTELLING
+═══════════════════════════════════════════════════════════════ -->
+  <section class="section section-border">
+    <div class="container" style="max-width:840px">
+      <div class="section-header center">
+        <h2 data-t="story-title">Personal Storytelling</h2>
+        <div
+          style="width:64px;height:2px;background:linear-gradient(90deg,var(--primary),var(--accent));margin:16px auto 0;border-radius:2px">
+        </div>
+      </div>
+      <div class="story-grid">
+
+        <div class="story-card glass">
+          <h3><i data-lucide="user" style="width:18px;height:18px;color:var(--primary)"></i> <span data-t="sq1-t">Who Am
+              I</span></h3>
+          <p data-t="sq1-d">I am a dedicated vocational student focused on system architecture, computing structures,
+            and reliable communications across platforms.</p>
+        </div>
+
+        <div class="story-card glass">
+          <h3><i data-lucide="activity" style="width:18px;height:18px;color:var(--secondary)"></i> <span
+              data-t="sq2-t">My Passion</span></h3>
+          <p data-t="sq2-d">My absolute drive lies in building modular, fast modern web interfaces, streamlining
+            automation tasks, and securing communication protocols.</p>
+        </div>
+
+        <div class="story-card glass">
+          <h3><i data-lucide="git-branch" style="width:18px;height:18px;color:var(--accent)"></i> <span
+              data-t="sq3-t">Why Networking</span></h3>
+          <p data-t="sq3-d">Networking represents the vital veins of the internet. Orchestrating fluid data delivery
+            provides unparalleled puzzle satisfaction.</p>
+        </div>
+
+        <div class="story-card glass">
+          <h3><i data-lucide="languages" style="width:18px;height:18px;color:var(--primary)"></i> <span
+              data-t="sq4-t">Why Languages</span></h3>
+          <p data-t="sq4-d">Fluency unlocks technical papers, early tool documentations, and enables global team
+            alignment without barriers.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+     ECOSYSTEM WALL
+═══════════════════════════════════════════════════════════════ -->
+  <section id="ecosystem" class="section section-border" style="background:rgba(3,5,15,0.6)">
+    <div class="container">
+      <div class="section-header center">
+        <h2 data-t="eco-title">Technology Ecosystem Wall</h2>
+        <p data-t="eco-sub">An overview of active environments, tools, and languages forming my production routine.</p>
+      </div>
+
+      <div class="eco-grid">
+        <div class="eco-card glass">
+          <div class="eco-icon" style="background:rgba(59,130,246,0.12);color:#60a5fa"><i data-lucide="monitor"
+              style="width:22px;height:22px"></i></div>
+          <span class="eco-name">Windows OS</span>
+          <span class="eco-role">Daily Driver</span>
+        </div>
+        <div class="eco-card glass">
+          <div class="eco-icon" style="background:rgba(245,158,11,0.12);color:#fbbf24"><i data-lucide="terminal"
+              style="width:22px;height:22px"></i></div>
+          <span class="eco-name">Linux Server</span>
+          <span class="eco-role">Administration</span>
+        </div>
+        <div class="eco-card glass">
+          <div class="eco-icon" style="background:rgba(6,182,212,0.12);color:#22d3ee"><i data-lucide="git-branch"
+              style="width:22px;height:22px"></i></div>
+          <span class="eco-name">Cisco Systems</span>
+          <span class="eco-role">Routing Protocols</span>
+        </div>
+        <div class="eco-card glass">
+          <div class="eco-icon" style="background:rgba(99,102,241,0.12);color:#818cf8"><i data-lucide="network"
+              style="width:22px;height:22px"></i></div>
+          <span class="eco-name">MikroTik RouterOS</span>
+          <span class="eco-role">Traffic Control</span>
+        </div>
+        <div class="eco-card glass">
+          <div class="eco-icon" style="background:rgba(255,255,255,0.06);color:#e2e8f0"><i data-lucide="github"
+              style="width:22px;height:22px"></i></div>
+          <span class="eco-name">GitHub</span>
+          <span class="eco-role">Version Control</span>
+        </div>
+        <div class="eco-card glass">
+          <div class="eco-icon" style="background:rgba(59,130,246,0.12);color:#3b82f6"><i data-lucide="code-2"
+              style="width:22px;height:22px"></i></div>
+          <span class="eco-name">VS Code</span>
+          <span class="eco-role">Workspace</span>
+        </div>
+        <div class="eco-card glass">
+          <div class="eco-icon" style="background:rgba(234,88,12,0.12);color:#fb923c"><i data-lucide="file-code"
+              style="width:22px;height:22px"></i></div>
+          <span class="eco-name">HTML5</span>
+          <span class="eco-role">Structuring</span>
+        </div>
+        <div class="eco-card glass">
+          <div class="eco-icon" style="background:rgba(96,165,250,0.12);color:#93c5fd"><i data-lucide="palette"
+              style="width:22px;height:22px"></i></div>
+          <span class="eco-name">CSS3 / Tailwind</span>
+          <span class="eco-role">Interface Design</span>
+        </div>
+        <div class="eco-card glass">
+          <div class="eco-icon" style="background:rgba(234,179,8,0.12);color:#fde047"><i data-lucide="zap"
+              style="width:22px;height:22px"></i></div>
+          <span class="eco-name">JavaScript</span>
+          <span class="eco-role">Interactions</span>
+        </div>
+        <div class="eco-card glass">
+          <div class="eco-icon" style="background:rgba(168,85,247,0.12);color:#c084fc"><i data-lucide="sparkles"
+              style="width:22px;height:22px"></i></div>
+          <span class="eco-name">AI Automation</span>
+          <span class="eco-role">Assisted Coding</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+     PROJECT SHOWCASE
+═══════════════════════════════════════════════════════════════ -->
+  <section id="projects" class="section section-border">
+    <div class="container">
+
+      <div class="projects-header">
+        <div>
+          <h2 data-t="proj-title">Project Showcase</h2>
+          <p data-t="proj-sub" style="color:var(--text-sec);font-weight:300;margin-top:10px;max-width:480px">Real
+            deployments, structural configurations, and simulations representing my hands-on knowledge.</p>
+        </div>
+        <div class="filter-bar">
+          <button class="filter-btn active" data-cat="all" onclick="filterProjects('all')">All</button>
+          <button class="filter-btn" data-cat="networking" onclick="filterProjects('networking')">Networking</button>
+          <button class="filter-btn" data-cat="web" onclick="filterProjects('web')">Web Dev</button>
+          <button class="filter-btn" data-cat="it" onclick="filterProjects('it')">IT Admin</button>
+        </div>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- Project 1: OSPF -->
+        <div class="project-card glass glow-border" data-category="networking" onclick="openModal('p1')">
+          <div class="project-thumb" style="background:linear-gradient(135deg,rgba(59,107,255,0.3),rgba(3,5,15,0.8))">
+            <div class="project-thumb-row">
+              <span class="badge badge-primary" style="font-size:9px">NETWORKING</span>
+              <span class="project-year">2026</span>
+            </div>
+            <p class="project-big-title">OSPF NET<br>ROUTER</p>
+          </div>
+          <div class="project-body">
+            <h3 class="project-title" data-t="p1-t">Multi-Area OSPF Dynamic Routing Simulation</h3>
+            <p class="project-desc" data-t="p1-d">Engineered subnets, dynamic metrics, and redundant backup networks in
+              enterprise-scale environments.</p>
+            <div class="project-tags">
+              <span class="chip">Cisco Packet Tracer</span>
+              <span class="chip">OSPF Route</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: Web Portfolio -->
+        <div class="project-card glass glow-border" data-category="web" onclick="openModal('p2')">
+          <div class="project-thumb" style="background:linear-gradient(135deg,rgba(139,70,255,0.3),rgba(3,5,15,0.8))">
+            <div class="project-thumb-row">
+              <span class="badge"
+                style="color:var(--secondary);background:rgba(139,70,255,0.12);border-color:rgba(139,70,255,0.3);font-size:9px">WEB
+                PROJECT</span>
+              <span class="project-year">2026</span>
+            </div>
+            <p class="project-big-title">TRANS-<br>CENDENCE</p>
+          </div>
+          <div class="project-body">
+            <h3 class="project-title" data-t="p2-t">Premium Interactive Portfolio Web</h3>
+            <p class="project-desc" data-t="p2-d">This portfolio using high-fidelity layout techniques, translation
+              controllers, and 3D particle systems.</p>
+            <div class="project-tags">
+              <span class="chip">HTML5 / CSS3</span>
+              <span class="chip">Three.js</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: Linux Homelab -->
+        <div class="project-card glass glow-border" data-category="it" onclick="openModal('p3')">
+          <div class="project-thumb" style="background:linear-gradient(135deg,rgba(0,212,200,0.2),rgba(3,5,15,0.8))">
+            <div class="project-thumb-row">
+              <span class="badge badge-accent" style="font-size:9px">IT PROJECT</span>
+              <span class="project-year">2025</span>
+            </div>
+            <p class="project-big-title">LINUX<br>HOMELAB</p>
+          </div>
+          <div class="project-body">
+            <h3 class="project-title" data-t="p3-t">Linux Server Administration Debian Homelab</h3>
+            <p class="project-desc" data-t="p3-d">Configured user environments, network protocols, SSH bindings, and
+              basic diagnostic script files.</p>
+            <div class="project-tags">
+              <span class="chip">Debian Linux</span>
+              <span class="chip">SysAdmin</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+     LANGUAGE SHOWCASE
+═══════════════════════════════════════════════════════════════ -->
+  <section class="section section-border" style="background:rgba(3,5,15,0.65)">
+    <div class="container">
+      <div class="lang-showcase-layout">
+
+        <div>
+          <h2 data-t="lang-title" style="margin-bottom:12px">Language Showcase</h2>
+          <p data-t="lang-sub" style="color:var(--text-sec);font-weight:300;line-height:1.65;margin-bottom:28px">I
+            believe communication and precise code syntax combine perfectly for modern system architectures.</p>
+
+          <div class="lang-select-list">
+            <button class="lang-select-btn active" data-lang="id" onclick="renderShowcaseLang('id')">
+              <div class="lang-select-btn-left">
+                <span class="flag">🇮🇩</span>
+                <span class="lang-name">Indonesian (Native)</span>
+              </div>
+              <i data-lucide="chevron-right" style="width:18px;height:18px;color:var(--primary)"></i>
+            </button>
+            <button class="lang-select-btn" data-lang="en" onclick="renderShowcaseLang('en')">
+              <div class="lang-select-btn-left">
+                <span class="flag">🇬🇧</span>
+                <span class="lang-name">English (Professional)</span>
+              </div>
+              <i data-lucide="chevron-right" style="width:18px;height:18px"></i>
+            </button>
+            <button class="lang-select-btn" data-lang="jp" onclick="renderShowcaseLang('jp')">
+              <div class="lang-select-btn-left">
+                <span class="flag">🇯🇵</span>
+                <span class="lang-name">Japanese (Learning)</span>
+              </div>
+              <i data-lucide="chevron-right" style="width:18px;height:18px"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="lang-display-panel glass glow-border">
+          <div id="lang-panel-content"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+     JOURNEY TIMELINE
+═══════════════════════════════════════════════════════════════ -->
+  <section class="section section-border">
+    <div class="container" style="max-width:800px">
+      <div class="section-header center">
+        <h2 data-t="journey-title">Learning Journey Roadmap</h2>
+        <p data-t="journey-sub">Step by step progression building solid technical foundations.</p>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:var(--primary)"></div>
+          <div class="timeline-year" style="color:var(--primary)">2024</div>
+          <h4 data-t="j24-t">Technology Foundation</h4>
+          <p data-t="j24-d">Mastered PC builds, operating system architectures (Linux/Windows), and basic HTML layouts.
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:var(--secondary)"></div>
+          <div class="timeline-year" style="color:var(--secondary)">2025</div>
+          <h4 data-t="j25-t">Networking & Languages</h4>
+          <p data-t="j25-d">Focused on subnets, OSPF dynamic protocol, core switches, and technical English
+            conversations.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:var(--accent)"></div>
+          <div class="timeline-year" style="color:var(--accent)">2026</div>
+          <h4 data-t="j26-t">Project Development</h4>
+          <p data-t="j26-d">Deploying active OSPF topologies, building beautiful vanilla JS templates, and basic homelab
+            server maintenance.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:#34d399"></div>
+          <div class="timeline-year" style="color:#34d399">FUTURE</div>
+          <h4 data-t="jfut-t">IT Professional & Network Engineer</h4>
+          <p data-t="jfut-d">Transforming into a systems network expert spearheading enterprise cloud systems and smart
+            communications globally.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+     STATS
+═══════════════════════════════════════════════════════════════ -->
+  <div id="stats-section" style="background:rgba(3,5,15,0.85)">
+    <div class="stats-row">
+      <div>
+        <span class="stat-num" id="stat-p">0</span>
+        <p class="stat-label" data-t="stat-p">Projects Completed</p>
+      </div>
+      <div>
+        <span class="stat-num" id="stat-t">0</span>
+        <p class="stat-label" data-t="stat-t">Technologies Learned</p>
+      </div>
+      <div>
+        <span class="stat-num" id="stat-l">0</span>
+        <p class="stat-label" data-t="stat-l">Languages Studied</p>
+      </div>
+      <div>
+        <span class="stat-num" id="stat-h">0</span>
+        <p class="stat-label" data-t="stat-h">Learning Hours</p>
+      </div>
+      <div>
+        <span class="stat-num" id="stat-c">0</span>
+        <p class="stat-label" data-t="stat-c">Certifications</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+     CONTACT
+═══════════════════════════════════════════════════════════════ -->
+  <section id="contact" class="section section-border">
+    <div class="container" style="max-width:880px">
+      <div class="contact-card glass-heavy glow-border">
+        <div class="contact-blob-1"></div>
+        <div class="contact-blob-2"></div>
+
+        <h2 data-t="cont-title">Connect With Daffa</h2>
+        <p data-t="cont-sub">Get in touch to collaborate on technical tasks, network planning, or global web
+          development.</p>
+
+        <div class="contact-links">
+          <a href="mailto:hanifdaffa1207@gmail.com" class="contact-link glass">
+            <div class="contact-link-icon" style="background:rgba(59,107,255,0.12);color:var(--primary)">
+              <i data-lucide="mail" style="width:22px;height:22px"></i>
+            </div>
+            <span class="contact-link-name">Email</span>
+            <span class="contact-link-sub">hanifdaffa1207@gmail.com</span>
+          </a>
+          <a href="https://wa.me/6281585134544" target="_blank" class="contact-link glass">
+            <div class="contact-link-icon" style="background:rgba(52,211,153,0.12);color:#34d399">
+              <i data-lucide="phone" style="width:22px;height:22px"></i>
+            </div>
+            <span class="contact-link-name">WhatsApp</span>
+            <span class="contact-link-sub">Instant Reply</span>
+          </a>
+          <a href="https://www.linkedin.com/in/hanif-daffa-dzulfahmi/" target="_blank" class="contact-link glass">
+            <div class="contact-link-icon" style="background:rgba(59,130,246,0.12);color:#60a5fa">
+              <i data-lucide="linkedin" style="width:22px;height:22px"></i>
+            </div>
+            <span class="contact-link-name">LinkedIn</span>
+            <span class="contact-link-sub">Professional Link</span>
+          </a>
+          <a href="https://github.com/kumabear-hdd" target="_blank" class="contact-link glass">
+            <div class="contact-link-icon" style="background:rgba(168,85,247,0.12);color:#c084fc">
+              <i data-lucide="github" style="width:22px;height:22px"></i>
+            </div>
+            <span class="contact-link-name">GitHub</span>
+            <span class="contact-link-sub">kumabear-hdd</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ────────────────────────────────────────────── -->
+  <footer>
+    <strong>HANIF DAFFA DZULFAHMI</strong>
+    <p data-t="foot-copy">© 2026 Hanif Daffa Dzulfahmi. Built with extreme precision and premium fluidity.</p>
+    <div class="footer-badges">
+      <span class="footer-badge">Responsive Layout</span>
+      <span class="footer-badge">Multi-Language</span>
+      <span class="footer-badge">Three.js Background</span>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    // Init Lucide icons after DOM ready
+    document.addEventListener('DOMContentLoaded', () => lucide.createIcons());
+  </script>
+
+</body>
+
+</html>
