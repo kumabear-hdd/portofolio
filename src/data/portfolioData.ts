@@ -1,13 +1,10 @@
-/* ============================================
-   HANIF DAFFA DZULFAHMI
-   main.js — Core Application Logic
-   ============================================ */
+export type Language = 'en' | 'id' | 'jp';
 
-'use strict';
+export interface Translations {
+  [key: string]: string;
+}
 
-// ─── Translation Map ─────────────────────────────────────────────────────────
-
-const translations = {
+export const translations: Record<Language, Translations> = {
   en: {
     "hero-badge": "Pioneering Future Technical Innovations",
     "hero-sub1": "Information Technology Student",
@@ -41,8 +38,14 @@ const translations = {
     "galaxy-title": "Skill Galaxy Orbit System",
     "galaxy-sub": "Visual simulation tracking key technical domains rotating around a central core.",
     "core-label": "CORE",
-    "g1": "Networking", "g2": "Windows", "g3": "Linux", "g4": "Japanese",
-    "g5": "English", "g6": "Web Dev", "g7": "Hardware", "g8": "GitHub",
+    "g1": "Networking",
+    "g2": "Windows",
+    "g3": "Linux",
+    "g4": "Japanese",
+    "g5": "English",
+    "g6": "Web Dev",
+    "g7": "Hardware",
+    "g8": "GitHub",
     "story-title": "Personal Storytelling",
     "sq1-t": "Who Am I",
     "sq1-d": "I am a dedicated vocational student focused on system architecture, computing structures, and reliable communications across platforms.",
@@ -82,10 +85,12 @@ const translations = {
     "cont-title": "Connect With Hanif",
     "cont-sub": "Get in touch to collaborate on technical tasks, network planning, or global web development.",
     "foot-copy": "© 2026 Hanif Daffa Dzulfahmi. Built with extreme precision and premium fluidity.",
-    "m-cat": "Category", "m-tech": "Tech Stack", "m-out": "Learning Outcome",
-    "m-chal": "Challenge & Problem Statement", "m-sol": "Solution & Implementation"
+    "m-cat": "Category",
+    "m-tech": "Tech Stack",
+    "m-out": "Learning Outcome",
+    "m-chal": "Challenge & Problem Statement",
+    "m-sol": "Solution & Implementation"
   },
-
   id: {
     "hero-badge": "Merintis Inovasi Teknologi Masa Depan",
     "hero-sub1": "Siswa Teknologi Informasi",
@@ -119,8 +124,14 @@ const translations = {
     "galaxy-title": "Sistem Orbit Galaksi Keahlian",
     "galaxy-sub": "Simulasi visual domain teknis utama yang berputar di sekitar inti pusat.",
     "core-label": "INTI",
-    "g1": "Jaringan", "g2": "Windows", "g3": "Linux", "g4": "B. Jepang",
-    "g5": "B. Inggris", "g6": "Web Dev", "g7": "Hardware", "g8": "GitHub",
+    "g1": "Jaringan",
+    "g2": "Windows",
+    "g3": "Linux",
+    "g4": "B. Jepang",
+    "g5": "B. Inggris",
+    "g6": "Web Dev",
+    "g7": "Hardware",
+    "g8": "GitHub",
     "story-title": "Cerita Pribadi",
     "sq1-t": "Siapa Saya",
     "sq1-d": "Saya adalah siswa SMK berdedikasi yang fokus pada arsitektur sistem, struktur komputasi, dan komunikasi yang andal.",
@@ -160,10 +171,12 @@ const translations = {
     "cont-title": "Hubungi Hanif",
     "cont-sub": "Hubungi saya untuk kolaborasi tugas teknis, perencanaan jaringan, atau pengembangan web global.",
     "foot-copy": "© 2026 Hanif Daffa Dzulfahmi. Dibuat dengan presisi tinggi untuk performa puncak.",
-    "m-cat": "Kategori", "m-tech": "Tech Stack", "m-out": "Hasil Belajar",
-    "m-chal": "Tantangan & Masalah", "m-sol": "Solusi & Implementasi"
+    "m-cat": "Kategori",
+    "m-tech": "Tech Stack",
+    "m-out": "Hasil Belajar",
+    "m-chal": "Tantangan & Masalah",
+    "m-sol": "Solusi & Implementasi"
   },
-
   jp: {
     "hero-badge": "未来の技術革新を先導する",
     "hero-sub1": "情報技術の学生",
@@ -197,8 +210,14 @@ const translations = {
     "galaxy-title": "スキル銀河オービットシステム",
     "galaxy-sub": "コアスキルが継続的に軌道上を回転するインタラクティブビジュアルシミュレーション。",
     "core-label": "コア",
-    "g1": "ネットワーク", "g2": "Windows", "g3": "Linux", "g4": "日本語",
-    "g5": "英語", "g6": "ウェブ開発", "g7": "ハードウェア", "g8": "GitHub",
+    "g1": "ネットワーク",
+    "g2": "Windows",
+    "g3": "Linux",
+    "g4": "日本語",
+    "g5": "英語",
+    "g6": "ウェブ開発",
+    "g7": "ハードウェア",
+    "g8": "GitHub",
     "story-title": "ストーリーテリング",
     "sq1-t": "私は誰ですか",
     "sq1-d": "インフラ構築、効率的なシステム、そして円滑な国境なき通信を追求する情熱的な学生です。",
@@ -238,480 +257,158 @@ const translations = {
     "cont-title": "お問合せ先",
     "cont-sub": "ネットワーク計画、技術案件、またはウェブ開発における多言語共同開発についてのご相談はこちらから。",
     "foot-copy": "© 2026 Hanif Daffa Dzulfahmi. 最大の安定性と美学に基づき設計。",
-    "m-cat": "カテゴリ", "m-tech": "使用スタック", "m-out": "主な学び",
-    "m-chal": "直面した技術的課題", "m-sol": "施策と解決アプローチ"
+    "m-cat": "カテゴリ",
+    "m-tech": "使用スタック",
+    "m-out": "主な学び",
+    "m-chal": "直面した技術的課題",
+    "m-sol": "施策と解決アプローチ"
   }
 };
 
-// ─── Project Data ─────────────────────────────────────────────────────────────
+export interface ProjectLocalization {
+  title: string;
+  category: string;
+  challenge: string;
+  solution: string;
+}
 
-const projectData = {
+export interface ProjectItem {
+  id: string;
+  category: 'networking' | 'web' | 'it';
+  tag: string;
+  badgeClass?: string;
+  tech: string;
+  outcome: string;
+  year: string;
+  bigTitle: string;
+  gradient: string;
+  chips: string[];
+  en: ProjectLocalization;
+  id_lang: ProjectLocalization;
+  jp: ProjectLocalization;
+}
+
+export const projects: Record<string, ProjectItem> = {
   p1: {
+    id: "p1",
+    category: "networking",
     tag: "NETWORKING",
+    badgeClass: "badge-primary",
     tech: "Cisco Packet Tracer, OSPF, IPv4 Subnetting",
     outcome: "Deep Network Redundancy Skills",
+    year: "2026",
+    bigTitle: "OSPF NET\nROUTER",
+    gradient: "linear-gradient(135deg, rgba(59, 107, 255, 0.3), rgba(3, 5, 15, 0.8))",
+    chips: ["Cisco Packet Tracer", "OSPF Route"],
     en: {
-      title: "Multi-Area OSPF Dynamic Routing Simulation", category: "Network Engineering",
+      title: "Multi-Area OSPF Dynamic Routing Simulation",
+      category: "Network Engineering",
       challenge: "Designing dynamic metrics for a multi-floor department company while guaranteeing zero single-point of failure on gateway connections.",
       solution: "Applied hierarchical VLSM IPv4 address blocks. Configured dynamic link costs, redundant route maps, and priority timers on OSPF areas to implement smooth switchover speeds."
     },
-    id: {
-      title: "Simulasi Routing Dinamis OSPF Multi-Area", category: "Teknik Jaringan Komputer",
+    id_lang: {
+      title: "Simulasi Routing Dinamis OSPF Multi-Area",
+      category: "Teknik Jaringan Komputer",
       challenge: "Merancang metrik dinamis untuk departemen perusahaan bertingkat sambil memastikan tidak adanya kegagalan titik tunggal pada sambungan gateway.",
       solution: "Menerapkan pembagian alamat VLSM IPv4 berjenjang. Mengkonfigurasi biaya tautan dinamis, peta rute cadangan, dan timer prioritas pada area OSPF guna mewujudkan pemindahan rute yang cepat."
     },
     jp: {
-      title: "OSPFマルチエリア動的ルーティング検証", category: "ネットワークエンジニアリング",
+      title: "OSPFマルチエリア動的ルーティング検証",
+      category: "ネットワークエンジニアリング",
       challenge: "複数階層に分かれた部門企業向けの動的アドレス設定。万が一回線が切断されてもゲートウェイの冗長化を確保する。",
       solution: "VLSM IPv4階層型設計の適用。OSPFのリンクコスト設定とプライオリティタイマー調整を施し、回線障害時の自動ルート切り替えを最適化。"
     }
   },
   p2: {
-    tag: "WEB DEVELOPMENT",
+    id: "p2",
+    category: "web",
+    tag: "WEB PROJECT",
+    badgeClass: "badge-secondary",
     tech: "HTML5, CSS3, Vanilla ES6 JavaScript, Three.js",
     outcome: "Premium Responsive Interface Architect",
+    year: "2026",
+    bigTitle: "TRANS-\nCENDENCE",
+    gradient: "linear-gradient(135deg, rgba(139, 70, 255, 0.3), rgba(3, 5, 15, 0.8))",
+    chips: ["HTML5 / CSS3", "Three.js"],
     en: {
-      title: "Premium Interactive Portfolio Web", category: "Frontend Web Development",
+      title: "Premium Interactive Portfolio Web",
+      category: "Frontend Web Development",
       challenge: "Constructing a rich interactive platform with complex multilingual rendering and 3D background systems without slowing user access.",
       solution: "Wrote cleanly-optimized vanilla JS listeners. Consolidated state controls into simplified function hooks and rendered a micro-geometry point field in Three.js with zero dependency bloat."
     },
-    id: {
-      title: "Portofolio Interaktif Premium", category: "Rekayasa Web Frontend",
+    id_lang: {
+      title: "Portofolio Interaktif Premium",
+      category: "Rekayasa Web Frontend",
       challenge: "Membangun platform interaktif kaya grafis dengan perenderan multibahasa kompleks dan sistem latar belakang 3D tanpa membebani browser klien.",
       solution: "Menulis pendengar vanilla JS yang dioptimalkan. Mengkonsolidasikan manajemen status dan merender formasi partikel ringan pada Three.js untuk performa puncak."
     },
     jp: {
-      title: "プレミアムポートフォリオサイト構築", category: "フロントエンド開発",
+      title: "プレミアムポートフォリオサイト構築",
+      category: "フロントエンド開発",
       challenge: "多言語切替と3D描画背景を備えた、軽量でありながら視覚的にリッチなウェブ表示性能の両立。",
       solution: "余計な外部ライブラリを排除し、最適化された純粋なVanilla JSとThree.jsによるパーティクルシステムを自作。ロード速度向上を実現。"
     }
   },
   p3: {
-    tag: "IT ARCHITECTURE",
+    id: "p3",
+    category: "it",
+    tag: "IT PROJECT",
+    badgeClass: "badge-accent",
     tech: "Debian Linux Server, SSH, System Tools",
     outcome: "Reliable System Administration Foundation",
+    year: "2025",
+    bigTitle: "LINUX\nHOMELAB",
+    gradient: "linear-gradient(135deg, rgba(0, 212, 200, 0.2), rgba(3, 5, 15, 0.8))",
+    chips: ["Debian Linux", "SysAdmin"],
     en: {
-      title: "Linux Server Administration Debian Homelab", category: "IT Administration & Systems",
+      title: "Linux Server Administration Debian Homelab",
+      category: "IT Administration & Systems",
       challenge: "Ensuring secure remote access privileges, dynamic network configurations, and basic diagnostic protocols on local test deployments.",
       solution: "Configured SSH keys, set restrictive user groupings, managed basic system firewalls, and composed clear diagnostic script log pipelines."
     },
-    id: {
-      title: "Administrasi Server Linux Debian Homelab", category: "Sistem Administrasi TI",
+    id_lang: {
+      title: "Administrasi Server Linux Debian Homelab",
+      category: "Sistem Administrasi TI",
       challenge: "Memastikan hak akses jarak jauh yang aman, konfigurasi protokol jaringan lokal dinamis, serta pengujian berkala pada server lokal.",
       solution: "Mengkonfigurasi sertifikat kunci SSH, menetapkan pembagian grup pengguna yang ketat, mengaktifkan firewall dasar, serta merancang skrip pendeteksi log kesalahan otomatis."
     },
     jp: {
-      title: "Linux Debian サーバー構築", category: "ITインフラ管理",
+      title: "Linux Debian サーバー構築",
+      category: "ITインフラ管理",
       challenge: "安全なリモート接続設定、テスト環境用サーバーのネットワークバインディング、および不正アクセス制限の設計。",
       solution: "SSH鍵暗号認証の導入、管理者グループの権限最小化、Linux内部ファイアウォール設定、およびログ追跡自動プログラムの作成。"
     }
   }
 };
 
-// ─── Language Showcase Data ───────────────────────────────────────────────────
+export interface LangShowcaseItem {
+  id: Language;
+  flag: string;
+  name: string;
+  text: string;
+  level: string;
+}
 
-const langShowcaseData = {
+export const langShowcaseData: Record<Language, LangShowcaseItem> = {
   id: {
-    flag: '🇮🇩', name: 'Bahasa Indonesia',
+    id: 'id',
+    flag: '🇮🇩',
+    name: 'Bahasa Indonesia',
     text: 'Bahasa ibu saya yang utama. Saya menggunakannya secara profesional untuk analisis teknis sistem, presentasi rancangan topologi, serta penyusunan panduan pengguna yang berpresisi tinggi.',
     level: 'Penutur Asli / Native Communication'
   },
   en: {
-    flag: '🇬🇧', name: 'English (Professional)',
+    id: 'en',
+    flag: '🇬🇧',
+    name: 'English (Professional)',
     text: 'Utilized actively for researching up-to-date IT documentation, parsing developer APIs, composing clean diagnostic reports, and aligning in international developer communities efficiently.',
     level: 'Advanced C1 Technical Reading & Communication'
   },
   jp: {
-    flag: '🇯🇵', name: 'Japanese (日本語)',
+    id: 'jp',
+    flag: '🇯🇵',
+    name: 'Japanese (日本語)',
     text: 'Saat ini aktif mempelajari dasar-dasar tata bahasa Jepang formal/informal, pemahaman kalimat kanji harian, serta melatih pelafalan kosakata dasar guna mempersiapkan diri berjejaring global.',
     level: 'Dynamic Learning Stage / Basic Technical Vocab'
   }
 };
-
-// ─── App State ────────────────────────────────────────────────────────────────
-
-let currentLang = 'en';
-let activeFilter = 'all';
-let activeShowLang = 'id';
-let statsTriggered = false;
-
-// ─── DOM Helpers ─────────────────────────────────────────────────────────────
-
-const $ = (s, ctx = document) => ctx.querySelector(s);
-const $$ = (s, ctx = document) => [...ctx.querySelectorAll(s)];
-
-// ─── Language System ──────────────────────────────────────────────────────────
-
-function setLang(lang) {
-  currentLang = lang;
-  const t = translations[lang];
-
-  // Update all [data-t] elements
-  $$('[data-t]').forEach(el => {
-    const key = el.dataset.t;
-    if (t[key] !== undefined) el.textContent = t[key];
-  });
-
-  // Update [data-t-ph] placeholder elements
-  $$('[data-t-ph]').forEach(el => {
-    const key = el.dataset.tPh;
-    if (t[key] !== undefined) el.setAttribute('placeholder', t[key]);
-  });
-
-  // Update active button states
-  $$('.lang-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.lang === lang);
-  });
-
-  // Japanese font body tweak
-  document.body.style.fontFamily = lang === 'jp'
-    ? "'DM Sans','Noto Sans JP',sans-serif"
-    : "'DM Sans',sans-serif";
-
-  // Refresh dynamic sections
-  filterProjects(activeFilter);
-  renderShowcaseLang(activeShowLang);
-}
-
-// ─── Intro Sequence ───────────────────────────────────────────────────────────
-
-function runIntro() {
-  const overlay = $('#intro');
-  const wordEl = $('#intro-word');
-  const barEl = $('#intro-bar');
-  const words = ['こんにちは。', 'Hello.', 'Halo.', 'HANIF DAFFA'];
-  let idx = 0;
-
-  function next() {
-    if (idx >= words.length) {
-      overlay.classList.add('fade-out');
-      setTimeout(() => {
-        overlay.style.display = 'none';
-        triggerStats();
-      }, 900);
-      return;
-    }
-    wordEl.textContent = words[idx];
-    wordEl.classList.add('show');
-    barEl.style.width = `${(idx + 1) * 25}%`;
-
-    setTimeout(() => {
-      wordEl.classList.remove('show');
-      idx++;
-      setTimeout(next, 320);
-    }, 1100);
-  }
-
-  setTimeout(next, 400);
-}
-
-// ─── Stats Counter ────────────────────────────────────────────────────────────
-
-function triggerStats() {
-  if (statsTriggered) return;
-  statsTriggered = true;
-
-  const targets = { 'stat-p': 15, 'stat-t': 11, 'stat-l': 3, 'stat-h': 400, 'stat-c': 4 };
-
-  Object.entries(targets).forEach(([id, target]) => {
-    const el = $(`#${id}`);
-    if (!el) return;
-    let curr = 0;
-    const step = target / 45;
-    const tick = () => {
-      curr = Math.min(curr + step, target);
-      el.textContent = Math.ceil(curr) + (curr >= target ? '+' : '');
-      if (curr < target) setTimeout(tick, 20);
-    };
-    tick();
-  });
-}
-
-// ─── Scroll: progress + header + stats trigger ───────────────────────────────
-
-function initScroll() {
-  const bar = $('#scroll-bar');
-  const header = $('#main-header');
-  const statsSection = $('#stats-section');
-
-  window.addEventListener('scroll', () => {
-    // Progress bar
-    const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-    bar.style.width = pct + '%';
-
-    // Sticky header glass
-    header.classList.toggle('scrolled', window.scrollY > 60);
-
-    // Stats trigger when visible
-    if (!statsTriggered && statsSection) {
-      const rect = statsSection.getBoundingClientRect();
-      if (rect.top < window.innerHeight * 0.85) triggerStats();
-    }
-  }, { passive: true });
-}
-
-// ─── Custom Cursor ────────────────────────────────────────────────────────────
-
-function initCursor() {
-  const ring = $('#cursor-ring');
-  const dot = $('#cursor-dot');
-  if (!ring) return;
-
-  let rx = 0, ry = 0, mx = 0, my = 0;
-  let raf;
-
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; });
-
-  function smoothRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    raf = requestAnimationFrame(smoothRing);
-  }
-  smoothRing();
-
-  document.addEventListener('mousedown', () => { ring.style.transform = 'translate(-50%,-50%) scale(1.4)'; });
-  document.addEventListener('mouseup', () => { ring.style.transform = 'translate(-50%,-50%) scale(1)'; });
-}
-
-// ─── 3D Card Tilt ─────────────────────────────────────────────────────────────
-
-function initCardTilt() {
-  const card = $('#id-card');
-  if (!card) return;
-
-  document.addEventListener('mousemove', e => {
-    const xA = (window.innerWidth / 2 - e.pageX) / 45;
-    const yA = (window.innerHeight / 2 - e.pageY) / 45;
-    card.style.transform = `rotateY(${xA}deg) rotateX(${yA}deg)`;
-  });
-}
-
-// ─── Project Filter ───────────────────────────────────────────────────────────
-
-function filterProjects(category) {
-  activeFilter = category;
-
-  $$('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === category));
-
-  $$('.project-card').forEach(card => {
-    const show = category === 'all' || card.dataset.category === category;
-    card.style.display = show ? '' : 'none';
-  });
-}
-
-// ─── Project Modal ────────────────────────────────────────────────────────────
-
-function openModal(id) {
-  const data = projectData[id];
-  if (!data) return;
-  const content = data[currentLang] || data.en;
-  const t = translations[currentLang];
-
-  $('#modal-tag').textContent = data.tag;
-  $('#modal-title').textContent = content.title;
-  $('#modal-cat-val').textContent = content.category;
-  $('#modal-tech-val').textContent = data.tech;
-  $('#modal-out-val').textContent = data.outcome;
-  $('#modal-chal').textContent = content.challenge;
-  $('#modal-sol').textContent = content.solution;
-  $('#modal-cat-label').textContent = t['m-cat'] || 'Category';
-  $('#modal-tech-label').textContent = t['m-tech'] || 'Tech Stack';
-  $('#modal-out-label').textContent = t['m-out'] || 'Learning Outcome';
-  $('#modal-chal-title').textContent = t['m-chal'] || 'Challenge & Problem Statement';
-  $('#modal-sol-title').textContent = t['m-sol'] || 'Solution & Implementation';
-
-  const modal = $('#project-modal');
-  modal.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-  const modal = $('#project-modal');
-  modal.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-// ─── Language Showcase ────────────────────────────────────────────────────────
-
-function renderShowcaseLang(lang) {
-  activeShowLang = lang;
-  const data = langShowcaseData[lang];
-
-  $$('.lang-select-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-
-  const panel = $('#lang-panel-content');
-  panel.style.opacity = '0';
-  panel.style.transform = 'translateY(8px)';
-
-  setTimeout(() => {
-    panel.innerHTML = `
-      <div class="lang-panel-header">
-        <span class="lang-panel-flag">${data.flag}</span>
-        <h3 class="lang-panel-name">${data.name}</h3>
-      </div>
-      <p class="lang-panel-text">${data.text}</p>
-      <div class="lang-level-box">
-        <div class="lang-level-label">PROFICIENCY LEVEL</div>
-        <div class="lang-level-val">${data.level}</div>
-      </div>
-    `;
-    panel.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-    panel.style.opacity = '1';
-    panel.style.transform = 'translateY(0)';
-  }, 160);
-}
-
-// ─── Command Palette ──────────────────────────────────────────────────────────
-
-function toggleCmdPalette() {
-  const overlay = $('#cmd-overlay');
-  const isOpen = overlay.classList.contains('open');
-  overlay.classList.toggle('open', !isOpen);
-  if (!isOpen) setTimeout(() => $('#cmd-input').focus(), 50);
-}
-
-function execCmd(action) {
-  toggleCmdPalette();
-  const navMap = {
-    'nav-hero': '#hero',
-    'nav-bento': '#bento',
-    'nav-skills': '#skills',
-    'nav-ecosystem': '#ecosystem',
-    'nav-projects': '#projects',
-    'nav-contact': '#contact'
-  };
-  if (navMap[action]) {
-    document.querySelector(navMap[action])?.scrollIntoView({ behavior: 'smooth' });
-  } else if (action.startsWith('lang-')) {
-    setLang(action.replace('lang-', ''));
-  }
-}
-
-// ─── Keyboard Shortcuts ───────────────────────────────────────────────────────
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    if ($('#cmd-overlay').classList.contains('open')) toggleCmdPalette();
-    if ($('#project-modal').classList.contains('open')) closeModal();
-  }
-  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-    e.preventDefault();
-    toggleCmdPalette();
-  }
-});
-
-// Click outside modal/palette to close
-$('#cmd-overlay').addEventListener('click', e => { if (e.target === e.currentTarget) toggleCmdPalette(); });
-$('#project-modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
-
-// ─── Three.js Starfield ───────────────────────────────────────────────────────
-
-function initThree() {
-  if (typeof THREE === 'undefined') return;
-
-  const container = $('#canvas-bg');
-  const W = window.innerWidth, H = window.innerHeight;
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(60, W / H, 1, 1000);
-  camera.position.z = 200;
-
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer.setSize(W, H);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  container.appendChild(renderer.domElement);
-
-  // Stars
-  const count = 500;
-  const pos = new Float32Array(count * 3);
-  for (let i = 0; i < count * 3; i++) pos[i] = (Math.random() - 0.5) * 600;
-
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-
-  const mat = new THREE.PointsMaterial({ color: 0x3b6bff, size: 1.8, transparent: true, opacity: 0.7 });
-  const stars = new THREE.Points(geo, mat);
-  scene.add(stars);
-
-  // Accent stars
-  const accentPos = new Float32Array(150 * 3);
-  for (let i = 0; i < 150 * 3; i++) accentPos[i] = (Math.random() - 0.5) * 500;
-  const geoA = new THREE.BufferGeometry();
-  geoA.setAttribute('position', new THREE.BufferAttribute(accentPos, 3));
-  const matA = new THREE.PointsMaterial({ color: 0x00d4c8, size: 1.2, transparent: true, opacity: 0.5 });
-  const accentStars = new THREE.Points(geoA, matA);
-  scene.add(accentStars);
-
-  (function animate() {
-    requestAnimationFrame(animate);
-    stars.rotation.x += 0.00055;
-    stars.rotation.y += 0.00038;
-    accentStars.rotation.x -= 0.00035;
-    accentStars.rotation.y += 0.00050;
-    renderer.render(scene, camera);
-  })();
-
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
-}
-
-// ─── Init ─────────────────────────────────────────────────────────────────────
-
-document.addEventListener('DOMContentLoaded', () => {
-  runIntro();
-  initScroll();
-  initCursor();
-  initCardTilt();
-  renderShowcaseLang('id');
-  setLang('en');
-
-  // Init Three.js after everything loaded
-  window.addEventListener('load', initThree);
-
-  // Expose globals for inline HTML onclick
-  window.setLang = setLang;
-  window.filterProjects = filterProjects;
-  window.openModal = openModal;
-  window.closeModal = closeModal;
-  window.renderShowcaseLang = renderShowcaseLang;
-  window.toggleCmdPalette = toggleCmdPalette;
-  window.execCmd = execCmd;
-});
-
-// ─── Contact Section Blobs ────────────────────────────────────────────────────
-// Contact animated blobs initialization
-function initContactBlobs() {
-  const blob1 = $('.contact-blob-1');
-  const blob2 = $('.contact-blob-2');
-  
-  if (!blob1 || !blob2) return;
-  
-  let mouseX = 0;
-  let mouseY = 0;
-  
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX / window.innerWidth;
-    mouseY = e.clientY / window.innerHeight;
-    
-    if (blob1) {
-      blob1.style.transform = `translate(${mouseX * 30}px, ${mouseY * 30}px)`;
-    }
-    if (blob2) {
-      blob2.style.transform = `translate(${mouseX * -20}px, ${mouseY * -20}px)`;
-    }
-  });
-}
-
-// Initialize contact section when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initContactBlobs);
-} else {
-  initContactBlobs();
-}gleCmdPalette = toggleCmdPalette;
-  window.execCmd = execCmd;
-});
