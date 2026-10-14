@@ -12,7 +12,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
   const [hidden, setHidden] = useState<boolean>(false);
 
   useEffect(() => {
-    const words = ['こんにちは。', 'Hello.', 'Halo.', 'HANIF DAFFA'];
+    const words = ['こんにちは。', 'Hello.', 'Halo.', 'HANIF DAFFA DZULFAHMI'];
     let idx = 0;
     let timer1: number;
     let timer2: number;
